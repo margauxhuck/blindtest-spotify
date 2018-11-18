@@ -6,10 +6,12 @@
     "gh-pages": "^1.0.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "react-query-params": "^1.0.9",
     "react-scripts": "1.0.17",
-    "react-sound": "^0.8.0"
+    "react-sound": "^0.8.0",
+    "url-parse": "^1.4.4"
   },
-  "homepage": "https://clement-escolano.github.io/blindtest-spotify",
+  "homepage": "https://margauxhuck.github.io/blindtest-spotify",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
