@@ -70,7 +70,7 @@ class App extends ReactQueryParams{
       '?response_type=token' +
       '&client_id=30e6b2b7ca184b9ebb24e839e7c9a771' +
       '&scope=user-library-read' +
-      '&redirect_uri=' + encodeURIComponent('https://margauxhuck.github.io/blindtest-spotify');
+      '&redirect_uri=' + encodeURIComponent('https://margauxhuck.github.io/blindtest-spotify/');
     } else {
       this.setState({ text: "Bonjour" })
       const playlistId = "37i9dQZF1DWXncK9DGeLh7"
