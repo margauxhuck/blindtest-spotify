@@ -18,7 +18,7 @@ class TrackDescription extends Component {
           </div>
         </div>
         <div class="track__cover">
-          <AlbumCover track={this.props.track} width="300"/>
+          <AlbumCover track={this.props.track} width="200"/>
         </div>
       </div>
     )

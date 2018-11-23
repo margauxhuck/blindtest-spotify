@@ -158,7 +158,7 @@ class App extends ReactQueryParams{
 
       const body = <TrackDescription track={this.state.currentTrack}/>
 
-      const button = <Button onClick={()=>this.prepareGame()}>Ready for the next track ?</Button>
+      const button = <Button onClick={()=>this.prepareGame()}>Ready for the next track?</Button>
 
       const buttons = (<div className="App-buttons">
       {

@@ -5,7 +5,6 @@ button {
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
-    white-space: nowrap;
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
@@ -17,6 +16,9 @@ button {
     color: #333;
     background: #fff none;
     margin: 0 10px;
+    width: 180px;
+    height: 60px;
+    word-wrap: break-word;
 }
 
 button:focus, button:hover {
@@ -24,5 +26,3 @@ button:focus, button:hover {
     border-color: #adadad;
     text-decoration: none;
 }
-
-
