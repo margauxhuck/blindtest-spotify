@@ -30,6 +30,28 @@ function shuffleArray(array) {
 
   return array;
 }
+function getTracks (url, tracks, access_token, resolve, reject) {
+  fetch(url, {
+    method: 'GET',
+    headers: {
+     Authorization: 'Bearer ' + access_token,
+    },
+  })
+    .then(response => response.json())
+    .then(data => {
+      const retrivedTracks = tracks.concat(data.items)
+      if (data.next !== null) {
+        getTracks(data.next, retrivedTracks, access_token, resolve, reject)
+      } else {
+        resolve(retrivedTracks)
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      reject('Something wrong. Please refresh the page and try again.')
+    })
+}
+
 
 /* Return a random number between 0 included and x excluded */
 function getRandomNumber(x) {
@@ -58,37 +80,34 @@ class App extends ReactQueryParams{
   componentDidMount() {
     var params = [];
     var query = window.location.hash.substr(1)
-    console.log(query);
     var pairs = query.split('&');
     for(var i in pairs){
       var couplet = pairs[i].split("=");
       params[couplet[0]] = couplet[1];
     }
-    console.log(params['access_token']);
     if (!params['access_token']){
       window.location.href='https://accounts.spotify.com/authorize' +
       '?response_type=token' +
       '&client_id=30e6b2b7ca184b9ebb24e839e7c9a771' +
       '&scope=user-library-read' +
+      //'&redirect_uri=' + encodeURIComponent('http://lvh.me:3000/');
       '&redirect_uri=' + encodeURIComponent('https://margauxhuck.github.io/blindtest-spotify/');
     } else {
+      window.location.hash = '';
       this.setState({ text: "Bonjour" })
       const playlistId = "37i9dQZF1DWXncK9DGeLh7"
       const playlistUrl = "https://api.spotify.com/v1/playlists/"+playlistId+"/tracks"
       const tracksUrl = "https://api.spotify.com/v1/me/tracks?limit=50"
-      fetch(tracksUrl, {
-        method: 'GET',
-        headers: {
-         Authorization: 'Bearer ' + params['access_token'],
-        },
+      new Promise((resolve, reject) => {
+        getTracks(tracksUrl,[],params['access_token'],resolve,reject)
       })
-      .then(response => response.json())
       .then((data) => {
         console.log("Réponse reçue ! Voilà ce que j'ai reçu : ", data);
-        const tracks = filterTracks(data.items);
+        const tracks = filterTracks(data);
         this.setState({tracks: tracks});
         this.setState({songsLoaded:true});
       })
+
     };
   }
 
@@ -137,7 +156,6 @@ class App extends ReactQueryParams{
   render() {
     const header = (<header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
-        <h1 className="App-title">Coding Sunday !</h1>
       </header>);
 
     if (this.state.songsLoaded) {
